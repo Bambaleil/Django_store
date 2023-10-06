@@ -47,32 +47,6 @@
         <div class="Section">
             <div class="wrap">
 
-                <!-- Избранные категории товаров -->
-                <div class="BannersHome">
-                    {% for category_data in featured_categories %}
-                    <a class="BannersHomeBlock" href="#">
-                        <div class="BannersHomeBlock-row">
-                            <div class="BannersHomeBlock-block">
-                                <strong class="BannersHomeBlock-title">
-                                    {{ category_data.title }}
-                                </strong>
-                                <div class="BannersHomeBlock-content">from&#32;
-                                    <span class="BannersHomeBlock-price">$199</span>
-                                </div>
-                            </div>
-                            <div class="BannersHomeBlock-block">
-                                <div class="BannersHomeBlock-img">
-                                    <img src="{% static 'assets/img/content/home/videoca.png' %}"
-                                         alt="product.png"/>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-
         <!-- Блок "ПРЕДЛОЖЕНИЕ ДНЯ" -->
         <div class="Section Section_column Section_columnLeft Section_columnDesktop">
             <div class="wrap">
@@ -101,11 +75,8 @@
                             </strong>
                             <div class="Card-description">
                               <div class="Card-cost">
-                                <span class="Card-priceOld">
-                                  ${{ chosen_product.get_max_price }}
-                                </span>
                                 <span class="Card-price">
-                                  ${{ chosen_product.get_min_price }}
+                                  ${{ chosen_product.get_avg_price_with_discount }}
                                 </span>
                               </div>
                               <div class="Card-category">
@@ -174,7 +145,7 @@
 														{% else %}
 															<span style="text-decoration: line-through; color: rgb(66, 70, 80);">${{ product.get_avg_price }}</span> ${{ product.get_avg_price_with_discount }}
 														{% endif %}
-                                                    </span>
+													</span>
                                                 </div>
 
                                                 <div class="Card-category">{{ product.category }}
@@ -188,7 +159,7 @@
             </div>
         </div>
 
-        <!-- Блок "Ограниченный тираж" -->
+				<!-- Блок "Ограниченный тираж" -->
         <div class="Section Section_column Section_columnRight">
             <div class="wrap">
                 <div class="Section-content">

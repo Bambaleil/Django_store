@@ -130,7 +130,7 @@ EMAIL_PORT=587
 1. Скачать и установить Celery
 2. Установить брокер сообщений RabbitMQ
 3. [Настроить брокер сообщений](https://docs.celeryq.dev/en/stable/getting-started/backends-and-brokers/rabbitmq.html)
-
+4. celery -A store worker --loglevel=info
 
  Команды для linux:
 ```bash
