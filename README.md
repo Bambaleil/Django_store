@@ -62,6 +62,9 @@ python -m manage loaddata orders/fixtures/*.json
 распаковать в директорию `uploads/` файл
 [uploads.zip](https://gitlab.skillbox.ru/kurator_skillbox/python_django_team28/uploads/5e1a277c4a99972bffcc2dfffca4c72c/uploads.zip)
 
+Uploads с картинками для каталога
+(https://gitlab.skillbox.ru/kurator_skillbox/python_django_team28/uploads/f84bcb490832ae3750261aebacb6dd89/uploads.zip)
+
 ### Запуск в режиме разработки и отладки
 
 Для запуска проекта необходимо запустить базу данных PostgreSQL, активировать виртуальное окружение, при необходимости,

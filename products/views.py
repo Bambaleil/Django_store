@@ -136,7 +136,7 @@ class CatalogView(BaseMixin, ListView):
             elif sort_param == "new_h2l":
                 queryset = queryset.order_by("-updated")
 
-            if tag_chosen:
+            if tag_chosen != 'None':
                 queryset = queryset.filter(tags=tag_chosen)
 
         return queryset
