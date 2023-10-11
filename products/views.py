@@ -136,17 +136,28 @@ class CatalogView(BaseMixin, ListView):
             elif sort_param == "new_h2l":
                 queryset = queryset.order_by("-updated")
 
-            if tag_chosen:
+            if tag_chosen and tag_chosen != 'None':
                 queryset = queryset.filter(tags=tag_chosen)
 
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        def get_payload(names_param):
+            payload = ""
+            for k, list_ in self.request.GET.lists():
+                if k in names_param:
+                    continue
+                for v in list_:
+                    payload += "&" + k + "=" + v
+            return payload
+
         price_range = self.request.GET.get("price")
         min_price_of_all = ProductPosition.objects.values("price").aggregate(Min("price"))["price__min"]
         max_price_of_all = ProductPosition.objects.values("price").aggregate(Max("price"))["price__max"]
         sort_param = self.request.GET.get("sort_param")
+        tags_param = self.request.GET.get("tags")
         if price_range:
             min_price, max_price = map(int, price_range.split(";"))
         else:
@@ -157,23 +168,11 @@ class CatalogView(BaseMixin, ListView):
         context["min_price_of_all"] = min_price_of_all
         context["max_price_of_all"] = max_price_of_all
         context["sort_param"] = sort_param
+        context["tags_param"] = tags_param
         context["filter_form"] = ProductFilterForm(self.request.GET)
-
-        payload = ""
-        for k, list_ in self.request.GET.lists():
-            if k == "page":
-                continue
-            for v in list_:
-                payload += "&" + k + "=" + v
-        context["payload"] = payload
-
-        payload = ""
-        for k, list_ in self.request.GET.lists():
-            if k == "page" or k == "sort_param":
-                continue
-            for v in list_:
-                payload += "&" + k + "=" + v
-        context["sort_payload"] = payload
+        context["payload"] = get_payload(["page"])
+        context["sort_payload"] = get_payload(["page", "sort_param"])
+        context["tags_payload"] = get_payload(["page", "tags"])
 
         return context
 
